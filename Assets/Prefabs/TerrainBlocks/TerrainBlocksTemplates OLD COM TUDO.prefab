@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1596832224318257736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1596832224318257782}
+  - component: {fileID: 1596832224318257783}
+  m_Layer: 0
+  m_Name: TerrainBlocksTemplates OLD COM TUDO
+  m_TagString: Rooms
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1596832224318257782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596832224318257736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1596832224318257783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596832224318257736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d339eb802a15da241a0e36ca0aef522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topTerrainBlocks:
+  - {fileID: 449220452120787269, guid: cecf1a6b75f7f5d4986c102e66eeaff7, type: 3}
+  - {fileID: 6793523616464184408, guid: 2499c225b29eb50419886d4c9f9eabc7, type: 3}
+  - {fileID: 1551325412567033816, guid: cad7885ec9fccc14db36d6247da81588, type: 3}
+  - {fileID: 8071108003835601095, guid: 5886c0dc05f338044ad32c75cf75ff02, type: 3}
+  - {fileID: 8071108003835601095, guid: db3b5bc4dac0eda4382849f2ab77e0ca, type: 3}
+  - {fileID: 8071108003835601095, guid: 083377b463dcbb744b20de2ab0f8a206, type: 3}
+  - {fileID: 744023129958017541, guid: efb73517308353e41bd68177a5a2d5d5, type: 3}
+  rightTerrainBlocks:
+  - {fileID: 8047379024790598965, guid: a4514520ad9c77e41b0c855207e75147, type: 3}
+  - {fileID: 6793523616464184408, guid: 2499c225b29eb50419886d4c9f9eabc7, type: 3}
+  - {fileID: 1551325412567033816, guid: cad7885ec9fccc14db36d6247da81588, type: 3}
+  - {fileID: 8071108003835601095, guid: 5886c0dc05f338044ad32c75cf75ff02, type: 3}
+  - {fileID: 8071108003835601095, guid: 7aab5246e64e87d4a889cd1f2d74641b, type: 3}
+  - {fileID: 8071108003835601095, guid: 355eca729170ca041a0bac3e1d265e11, type: 3}
+  - {fileID: 6726513738935651424, guid: 1495c6da74915f648ab77a87ca2d9b70, type: 3}
+  bottomTerrainBlocks:
+  - {fileID: 8047379024790598965, guid: a4514520ad9c77e41b0c855207e75147, type: 3}
+  - {fileID: 449220452120787269, guid: cecf1a6b75f7f5d4986c102e66eeaff7, type: 3}
+  - {fileID: 6793523616464184408, guid: 2499c225b29eb50419886d4c9f9eabc7, type: 3}
+  - {fileID: 8071108003835601095, guid: 083377b463dcbb744b20de2ab0f8a206, type: 3}
+  - {fileID: 8071108003835601095, guid: 355eca729170ca041a0bac3e1d265e11, type: 3}
+  - {fileID: 8071108003835601095, guid: e3c3e91d724186e43829acda03c0ddc1, type: 3}
+  - {fileID: 9048245864349896921, guid: 5b0a86766c4c15847bb1f64f1e7aed9a, type: 3}
+  leftTerrainBlocks:
+  - {fileID: 8047379024790598965, guid: a4514520ad9c77e41b0c855207e75147, type: 3}
+  - {fileID: 449220452120787269, guid: cecf1a6b75f7f5d4986c102e66eeaff7, type: 3}
+  - {fileID: 1551325412567033816, guid: cad7885ec9fccc14db36d6247da81588, type: 3}
+  - {fileID: 8071108003835601095, guid: db3b5bc4dac0eda4382849f2ab77e0ca, type: 3}
+  - {fileID: 8071108003835601095, guid: 7aab5246e64e87d4a889cd1f2d74641b, type: 3}
+  - {fileID: 8071108003835601095, guid: e3c3e91d724186e43829acda03c0ddc1, type: 3}
+  - {fileID: 5103959918143374280, guid: ce5dac47711d6794992a443caea6c1cb, type: 3}
+  blockedTerrainBlock: {fileID: 120556199994037380, guid: 2d448f73e9f200b4cacda183f9b5b983,
+    type: 3}
+  terrainBlocks: []
+  waitTime: 5
+  boss: {fileID: 1185082912798350, guid: 71442e8cd72511e4fabb72f1a2cc82dd, type: 3}
