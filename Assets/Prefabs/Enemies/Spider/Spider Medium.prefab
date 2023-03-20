@@ -419,12 +419,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1479237218038706375}
   - component: {fileID: 1373025128889587982}
-  - component: {fileID: 2425089013547891131}
   - component: {fileID: 5505336436540567114}
   - component: {fileID: 1470260617633266398}
   - component: {fileID: -8810803214561859710}
   - component: {fileID: 5406322798140215274}
   - component: {fileID: 1018220199565132261}
+  - component: {fileID: -6363406784196375606}
   m_Layer: 7
   m_Name: Spider Medium
   m_TagString: Untagged
@@ -469,31 +469,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2425089013547891131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2291380879589354109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0144ad147f7dba4d99e506700b6374f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chaseRange: 12
-  turnSpeed: 5
-  target: {fileID: 0}
-  isProvoked: 0
-  timeForDisable: 0
-  isDead: 0
-  maxHealth: 2
-  currentHealth: 2
-  enemyDamage: 2
-  enemySizeForDistance: 1
-  enemySizeForPlayerComparison: 1
-  usualSpeed: 0
-  usualAngularSpeed: 0
 --- !u!195 &5505336436540567114
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -508,7 +483,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 7.32
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -637,7 +612,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d33c0c753085e408539a6ab9e5d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreValue: 10
   foodValue: 1
+  isInvincible: 0
+  maxHealth: 2
+  currentHealth: 2
+  hasAddedScoreAlready: 0
+  timeForDisable: 0
+  isDead: 0
+  thisNavMesh: {fileID: 0}
+  usualSize: {x: 0, y: 0, z: 0}
+  deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
+  deathTimer: 10
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  referToScoreHUD: {fileID: 0}
 --- !u!54 &1018220199565132261
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -654,6 +643,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &-6363406784196375606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2291380879589354109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37919b0ea7f61b24cb8f15822a33e07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseRange: 15
+  turnSpeed: 5
+  target: {fileID: 0}
+  distanceToTarget: Infinity
+  isProvoked: 0
+  enemyDamage: 3
+  enemySizeForDistance: 2
+  enemySizeForPlayerComparison: 2
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  isScaredFromGrowth: 0
+  hasStartAttackSound: 0
+  startAttackSound: {fileID: 0}
+  doesNotMove: 0
+  rangedAttackTarget: {fileID: 0}
 --- !u!1 &2310290782818828610
 GameObject:
   m_ObjectHideFlags: 0

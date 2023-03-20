@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class CasterEnemy : MonoBehaviour
 {
 
-    [SerializeField] float chaseRange = 5f;
+    [SerializeField] float chaseRange = 25f;
 
     [SerializeField] float turnSpeed = 5f;
 
@@ -21,9 +21,7 @@ public class CasterEnemy : MonoBehaviour
 
     public float timeForDisable = 0;
     public bool isDead = false;
-
-    public int maxHealth = 1;
-    public int currentHealth = 1;
+    
     public int enemyDamage = 1;
     public int fireballDMG = 0;
 
@@ -46,13 +44,11 @@ public class CasterEnemy : MonoBehaviour
     public Vector3 deathSize = new Vector3(0.0001f, 0.0001f, 0.0001f);
     public float deathTimer = 10;
 
-    public bool isCaster = false;
     public int randomCasterAction;
     public bool isCasting = false;
-
+    [Header("Priest")]
     public GameObject priestUolalo;
     public Transform overHeadTarget;
-
     public bool hasStartAttackSound = false;
     public AudioClip startAttackSound;
     public AudioClip uolaloSound;
@@ -62,7 +58,7 @@ public class CasterEnemy : MonoBehaviour
     public GameObject shieldEffect;
     public bool isInvincible = false;
     public ParticleSystem anotherParticleEffect;
-
+    [Header("Wizard")]
     public bool isWizard = false;
     public ParticleSystem magicMissiles;
     public ParticleSystem lightningBolt;
@@ -89,34 +85,25 @@ public class CasterEnemy : MonoBehaviour
 
     public bool doesNotMove = false;
 
-    public int scoreValue = 10;
-    public ScoreHUD referToScoreHUD;
-    public bool hasAddedScoreAlready = false;
-
     Vector3 _direction;
     Quaternion particleSystemRotationMaster;
+
+    public EnemyStats enemyStats;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
-
         usualSpeed = GetComponent<NavMeshAgent>().speed;
         usualAngularSpeed = GetComponent<NavMeshAgent>().angularSpeed;
         navMeshAgent = GetComponent<NavMeshAgent>();
-
-
         target = FindObjectOfType<PlayerMovement>().transform;
         overHeadTarget = FindObjectOfType<OverHeadTarget>().transform;
         rangedAttackTarget = FindObjectOfType<RangedAttackTarget>().transform;
         usualSize = transform.localScale;
+        enemyStats = GetComponent<EnemyStats>();
 
         navMeshAgent.stoppingDistance = target.GetComponent<PlayerHealth>().sizeCombatRadius + (enemySizeForDistance - 1);
-        currentHealth = maxHealth;
-
-        referToScoreHUD = FindObjectOfType<ScoreHUD>();
-
 
     }
 
@@ -126,8 +113,6 @@ public class CasterEnemy : MonoBehaviour
     void Update()
     {
 
-
-
         distanceToTarget = Vector3.Distance(target.position, transform.position);
 
         if (allyTarget != null)
@@ -135,10 +120,10 @@ public class CasterEnemy : MonoBehaviour
             distanceToAlly = Vector3.Distance(allyTarget.transform.position, transform.position);
         }
 
-        if (isDead == false && doesNotMove == false)
+        if (enemyStats.isDead == false && doesNotMove == false)
         {
 
-            if (isScaredFromGrowth == true && distanceToTarget > chaseRange * 1.3f)
+            if (isScaredFromGrowth == true && distanceToTarget > chaseRange * 1.1f)
             {
                 navMeshAgent.SetDestination(transform.position);
                 isProvoked = false;
@@ -148,6 +133,19 @@ public class CasterEnemy : MonoBehaviour
                 GetComponent<Animator>().SetTrigger("idle");
 
             }
+            else if(isScaredFromGrowth == true && distanceToTarget < chaseRange * 1.1f)
+            {
+                StopEffects();
+                isProvoked = false;
+                Vector3 direction = transform.position - target.position;
+                Quaternion lookRotation = Quaternion.LookRotation((direction));
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed * 2);
+                Vector3 runTo = transform.position + direction;
+                navMeshAgent.SetDestination(runTo);
+            }
+
+
+
 
             if (isScaredFromGrowth == false)
             {
@@ -173,51 +171,69 @@ public class CasterEnemy : MonoBehaviour
                     ReturnToIdleMode();
                 }
 
-
-
-
-
             }
 
         }
 
-        if (doesNotMove == true && isRanged == false) // melee plant
+
+
+    } //Update End
+
+    public void StopEffects()
+    {
+        if(fireBall != null)
         {
-            if (distanceToTarget <= chaseRange)
-            {
-                FaceTargetWhenAttacking();
-                StartAttackTarget();
-            }
-            else
-            {
-                GetComponent<Animator>().SetBool("IsAttacking", false);
-                GetComponent<Animator>().SetBool("IsWalking", false);
-                GetComponent<Animator>().SetTrigger("idle");
-
-            }
+            fireBall.Stop();
+            fireBall.Clear();
 
         }
-
-        if (doesNotMove == true && isRanged == true) // Ranged plant
+        if (meteorCharge != null)
         {
-            if (distanceToTarget <= rangedAttackRange)
-            {
-                FaceTargetWhenAttacking();
-                AimWhenAttackingRanged();
-                StartRangedAttack();
-            }
-            else
-            {
-                GetComponent<Animator>().SetBool("IsAttacking", false);
-                GetComponent<Animator>().SetBool("IsWalking", false);
-                GetComponent<Animator>().SetTrigger("idle");
+            meteorCharge.Stop();
+            meteorCharge.Clear();
+        }
+        if (magicMissiles != null)
+        {
+            magicMissiles.Stop();
+            magicMissiles.Clear();
+        }
+        if (lightningBolt != null)
+        {
+            lightningBolt.Stop();
+            lightningBolt.Clear();
+        }
+        if (lightningBoltCharge != null)
+        {
+            lightningBoltCharge.Stop();
+            lightningBoltCharge.Clear();
+        }
+        if (fireballCharge != null)
+        {
+            fireballCharge.Stop();
+            fireballCharge.Clear();
+        }
 
-            }
+        if(GetComponent<AudioSource>())
+        {
+           GetComponent<AudioSource>().Stop();
+        }
 
+        if (allyTarget != null)
+        {
+            allyTarget.GetComponent<EnemyStats>().RemoveInvincibility();
 
         }
+
+        if (anotherParticleEffect != null)
+        {
+            anotherParticleEffect.Stop(true);
+            anotherParticleEffect.Clear();
+        }
+
+        StopAllCoroutines();
 
     }
+
 
     private void ReturnToIdleMode()
     {
@@ -226,12 +242,11 @@ public class CasterEnemy : MonoBehaviour
         GetComponent<Animator>().SetBool("IsAttacking", false);
         GetComponent<Animator>().SetBool("IsWalking", false);
         GetComponent<Animator>().SetTrigger("idle");
-
-
+        StopEffects();
 
         if (allyTarget != null)
         {
-            allyTarget.GetComponent<Warrior>().RemoveInvincibility();
+            allyTarget.GetComponent<EnemyStats>().RemoveInvincibility();
 
         }
 
@@ -259,7 +274,7 @@ public class CasterEnemy : MonoBehaviour
 
         }
 
-        if (isCaster && isCasting == true)
+        if (isCasting == true)
         {
             isCasting = false;
         }
@@ -270,27 +285,7 @@ public class CasterEnemy : MonoBehaviour
     {
         FaceTargetWhenAttacking();
 
-        if (isRanged == true)
-        {
-            AimWhenAttackingRanged();
-        }
-
-        if (isRanged == false && isCaster == false) // warrior
-        {
-            if (distanceToTarget > target.GetComponent<PlayerHealth>().sizeCombatRadius + (enemySizeForDistance - 1))
-            {
-                ChaseTarget();
-            }
-
-        }
-        else if (isRanged == true && isCaster == false) // archer
-        {
-            if (distanceToTarget > (target.GetComponent<PlayerHealth>().sizeCombatRadius + (enemySizeForDistance - 1) + rangedAttackRange))
-            {
-                ChaseTarget();
-            }
-        }
-        else if (isRanged == false && isCaster == true && isCasting == false) // priest & Wizard
+        if (isRanged == false && isCasting == false) // priest & Wizard Chase enemy
         {
             if (distanceToTarget > (target.GetComponent<PlayerHealth>().sizeCombatRadius + (enemySizeForDistance - 1) + rangedAttackRange))
             {
@@ -299,24 +294,7 @@ public class CasterEnemy : MonoBehaviour
         }
 
 
-        if (isRanged == false && isCaster == false) // warrior
-        {
-
-            if (distanceToTarget <= target.GetComponent<PlayerHealth>().sizeCombatRadius + 0.2f + (enemySizeForDistance - 1))
-            {
-                StartAttackTarget();
-            }
-
-        }
-        else if (isRanged == true && isCaster == false) // archer
-        {
-            if (distanceToTarget <= (target.GetComponent<PlayerHealth>().sizeCombatRadius + 0.2f + (enemySizeForDistance - 1) + rangedAttackRange))
-            {
-                StartRangedAttack();
-            }
-
-        }
-        else if (isRanged == false && isCaster == true && isWizard == false && isCasting == false) //priest
+        if (isRanged == false && isWizard == false && isCasting == false) //priest action
         {
             if (distanceToTarget <= (target.GetComponent<PlayerHealth>().sizeCombatRadius + 0.2f + (enemySizeForDistance - 1) + rangedAttackRange))
             {
@@ -329,50 +307,42 @@ public class CasterEnemy : MonoBehaviour
             }
 
         }
-        else if (isRanged == false && isCaster == true && isWizard == true && isCasting == false) //Wizard
+        else if (isRanged == false && isWizard == true && isCasting == false) //Wizard action
         {
             if (distanceToTarget <= (target.GetComponent<PlayerHealth>().sizeCombatRadius + 0.2f + (enemySizeForDistance - 1) + rangedAttackRange))
             {
-                if (isCasting == false)
-                {
-                    isCasting = true;
                     WizardRandomAction();
-                }
-
             }
 
         }
 
+    }//end engage target 
 
 
-
-
-
-
-
-
-
-    }
     //-------------------------------------------WIZARD---------------------------------------------------------
 
     void WizardRandomAction()
     {
         randomCasterAction = UnityEngine.Random.Range(1, 11);
 
-        if (randomCasterAction <= 3)
+        if (randomCasterAction <= 3 && isCasting == false)
         {
+            isCasting = true;
             WizardMagicMissileStart();
         }
-        else if (randomCasterAction > 3 && randomCasterAction <= 6)
+        else if (randomCasterAction > 3 && randomCasterAction <= 6 && isCasting == false)
         {
+            isCasting = true;
             WizardLightningBoltStart();
         }
-        else if (randomCasterAction > 6 && randomCasterAction <= 9)
+        else if (randomCasterAction > 6 && randomCasterAction <= 9 && isCasting == false)
         {
+            isCasting = true;
             WizardFireBallStart();
         }
-        else if (randomCasterAction > 9)
+        else if (randomCasterAction > 9 && isCasting == false)
         {
+            isCasting = true;
             WizardMeteorStart();
         }
 
@@ -399,6 +369,7 @@ public class CasterEnemy : MonoBehaviour
     void WizardLightningBoltStart()
     {
         isCasting = true;
+        magicMissiles.Stop();
         FaceTargetWhenAttacking();
         AimWhenAttackingMagic();
         navMeshAgent.SetDestination(transform.position);
@@ -417,6 +388,7 @@ public class CasterEnemy : MonoBehaviour
     void WizardFireBallStart()
     {
         isCasting = true;
+        magicMissiles.Stop();
         activateFireBallDamage = true;
         FaceTargetWhenAttacking();
         AimWhenAttackingMagic();
@@ -455,7 +427,6 @@ public class CasterEnemy : MonoBehaviour
     IEnumerator WizardMeteorShowerSequence()
     {
 
-
         float timeTillAttack = 0;
 
         do
@@ -468,15 +439,13 @@ public class CasterEnemy : MonoBehaviour
         meteorCharge.Stop();
 
 
-        GameObject _meteorShowerInstance = (GameObject)Instantiate(meteorShower, (overHeadTarget.position + new Vector3(0, 15, 0)), Quaternion.identity, this.gameObject.transform);
+        GameObject _meteorShowerInstance = (GameObject)Instantiate(meteorShower, (overHeadTarget.position + new Vector3(0, 15, 0)), Quaternion.identity); // this.gameObject.transform
         GetComponent<AudioSource>().pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         GetComponent<AudioSource>().volume = 0.6f;
         GetComponent<AudioSource>().PlayOneShot(meteorPortalSFX);
 
-        Destroy(_meteorShowerInstance, 5f);
+        //Destroy(_meteorShowerInstance, 5.2f);
         StartCoroutine(WizardActionEnd(7));
-
-
 
     }
 
@@ -526,12 +495,10 @@ public class CasterEnemy : MonoBehaviour
         particleSystemRotationMaster.eulerAngles = _direction;
         GameObject LBFINAL = Instantiate(lighteningFINAL, rangedMagicStartingPoint.transform.position, Quaternion.LookRotation(_direction), transform);
 
-        Destroy(LBFINAL, 4);
-        StartCoroutine(WizardActionEnd(4));
+        Destroy(LBFINAL, 3);
+        StartCoroutine(WizardActionEnd(3));
 
     }
-
-
 
     IEnumerator WizardActionEnd(float endTimer)
     {
@@ -564,7 +531,7 @@ public class CasterEnemy : MonoBehaviour
     void PriestRandomAction()
     {
 
-        randomCasterAction = 2;   //UnityEngine.Random.Range(1, 10);
+        randomCasterAction = UnityEngine.Random.Range(1, 10);
 
         if (randomCasterAction <= 3)
         {
@@ -595,12 +562,6 @@ public class CasterEnemy : MonoBehaviour
         rangedAttackParticleSystem.transform.rotation = lookRotation;
 
         FaceTargetWhenAttacking();
-
-
-
-
-
-
 
         rangedAttackParticleSystem.Play();
         GetComponent<AudioSource>().pitch = UnityEngine.Random.Range(0.9f, 1.1f);
@@ -646,7 +607,6 @@ public class CasterEnemy : MonoBehaviour
 
     void PriestShieldAlly()
     {
-
         isCasting = true;
         navMeshAgent.SetDestination(transform.position);
 
@@ -662,21 +622,19 @@ public class CasterEnemy : MonoBehaviour
             GetComponent<AudioSource>().volume = 1f;
             GetComponent<AudioSource>().PlayOneShot(shieldAllySound);
 
-
             foreach (Collider ally in allies)
             {
 
-                if (allyTarget == null && ally.CompareTag("Human") && ally.GetComponent<Warrior>().isDead == false)
+                if (allyTarget == null && ally.CompareTag("Human") && ally.GetComponent<EnemyStats>().isDead == false)
                 {
                     allyTarget = ally.gameObject;
                     Debug.Log(allyTarget.name);
                     GameObject shield = (GameObject)Instantiate(shieldEffect, allyTarget.transform);
-                    allyTarget.GetComponent<Warrior>().Invincibility();
+                    allyTarget.GetComponent<EnemyStats>().Invincibility();
                 }
 
 
             }
-
 
         }
         else
@@ -687,56 +645,8 @@ public class CasterEnemy : MonoBehaviour
 
     }
 
-    public void Invincibility()
-    {
-        isInvincible = true;
-    }
-
-    public void RemoveInvincibility()
-    {
-        if (isInvincible)
-        {
-            isInvincible = false;
-            GameObject shieldObject = GetComponentInChildren<PriestShield>().gameObject;
-            Destroy(shieldObject);
-
-        }
-
-
-    }
-
-
-
 
     // ----------------------------------------END PRIEST-----------------------------------------
-
-    private void StartRangedAttack()
-    {
-        navMeshAgent.SetDestination(transform.position);
-        GetComponent<Animator>().SetBool("IsAttacking", true);
-        GetComponent<Animator>().SetBool("IsWalking", false);
-
-
-
-    }
-
-    public void FireRangedAttack() // called from animation
-    {
-
-        rangedAttackParticleSystem.Play();
-
-        if (GetComponent<AudioSource>())
-        {
-
-            GetComponent<AudioSource>().pitch = UnityEngine.Random.Range(0.9f, 1.1f);
-            GetComponent<AudioSource>().volume = 0.6f;
-            GetComponent<AudioSource>().Play();
-
-        }
-
-    }
-
-
 
     void ChaseTarget()
     {
@@ -747,37 +657,6 @@ public class CasterEnemy : MonoBehaviour
 
     }
 
-    void StartAttackTarget()
-    {
-        GetComponent<Animator>().SetBool("IsAttacking", true);
-        GetComponent<Animator>().SetBool("IsWalking", false);
-
-        if (hasStartAttackSound && GetComponent<AudioSource>().isPlaying == false)
-        {
-            GetComponent<AudioSource>().pitch = UnityEngine.Random.Range(0.9f, 1.1f);
-            GetComponent<AudioSource>().PlayOneShot(startAttackSound);
-        }
-
-    }
-
-    public void EndAttackTarget() // comes from animation
-    {
-        if (distanceToTarget <= target.GetComponent<PlayerHealth>().sizeCombatRadius + 0.3f + (enemySizeForDistance - 1))
-        {
-            if (GetComponent<AudioSource>())
-            {
-
-                GetComponent<AudioSource>().pitch = UnityEngine.Random.Range(0.9f, 1.1f);
-                GetComponent<AudioSource>().Play();
-
-            }
-            target.GetComponent<PlayerHealth>().PlayerTakeDamage(enemyDamage);
-
-
-        }
-    }
-
-
     void FaceTargetWhenAttacking()
     {
         Vector3 direction = (rangedAttackTarget.position - transform.position).normalized;
@@ -787,26 +666,10 @@ public class CasterEnemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
 
     }
-
-    void AimWhenAttackingRanged()
-    {
-        Vector3 direction = (rangedAttackTarget.position - rangedAttackStartingPoint.position);
-
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-
-        Quaternion particleSystemRotation = rangedAttackParticleSystem.transform.rotation;
-        particleSystemRotation.eulerAngles = direction;
-
-
-
-        rangedAttackParticleSystem.transform.rotation = lookRotation;
-
-    }
+    
 
     void AimWhenAttackingMagic()
     {
-
-
         particleSystemRotationMaster = rangedMagicStartingPoint.transform.rotation;
 
         _direction = particleSystemRotationMaster.eulerAngles;
@@ -815,108 +678,6 @@ public class CasterEnemy : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(_direction, new Vector3(0, 10, 0));
 
         rangedMagicStartingPoint.transform.rotation = lookRotation;
-
-
-
-
-
-    }
-
-
-
-    public void TakeDamage(int damage)
-    {
-        if (isInvincible == false)
-        {
-            currentHealth -= damage;
-            if (anotherParticleEffect != null)
-            {
-                anotherParticleEffect.Stop();
-
-            }
-            if (rangedAttackParticleSystem != null)
-            {
-                rangedAttackParticleSystem.Stop();
-
-            }
-
-            if (allyTarget != null)
-            {
-                allyTarget.GetComponent<Warrior>().RemoveInvincibility();
-            }
-
-            if (currentHealth <= 0)
-            {
-                StartDeathSequence();
-            }
-
-
-        }
-
-    }
-
-
-
-    public void StartDeathSequence()
-    {
-
-        GetComponent<BoxCollider>().isTrigger = false;
-        isDead = true;
-        GetComponent<NavMeshAgent>().speed = 0;
-        GetComponent<NavMeshAgent>().angularSpeed = 0;
-        GetComponent<Animator>().SetBool("IsAttacking", false);
-        GetComponent<Animator>().SetBool("IsWalking", false);
-        GetComponent<Animator>().SetTrigger("death");
-        hasAddedScoreAlready = true;
-        referToScoreHUD.IncreaseScore(scoreValue);
-
-        StartCoroutine(ProcessToDeath());
-
-    }
-
-
-
-    IEnumerator ProcessToDeath()
-    {
-
-        timeForDisable = 0;
-
-        do
-        {
-            timeForDisable += Time.deltaTime;
-            yield return null;
-        }
-
-        while (timeForDisable < 5);
-
-
-        timeForDisable = 0;
-
-        do
-        {
-
-            transform.localScale = Vector3.Lerp(usualSize, deathSize, timeForDisable / deathTimer);
-
-            timeForDisable += Time.deltaTime;
-
-            yield return null;
-        }
-
-        while (timeForDisable < deathTimer);
-
-
-        gameObject.SetActive(false);
-        GetComponent<BoxCollider>().isTrigger = true;
-        GetComponent<Rigidbody>().isKinematic = true;
-        currentHealth = maxHealth;
-        GetComponent<NavMeshAgent>().speed = usualSpeed;
-        GetComponent<NavMeshAgent>().angularSpeed = usualAngularSpeed;
-        GetComponent<Rigidbody>().isKinematic = false;
-        transform.localScale = usualSize;
-        isDead = false;
-
-
-
     }
 
     // when player grows:
@@ -937,14 +698,7 @@ public class CasterEnemy : MonoBehaviour
             GetComponent<Animator>().SetBool("IsAttacking", false);
             GetComponent<Animator>().SetBool("IsWalking", true);
 
-            Vector3 direction = (target.position - transform.position).normalized;
 
-            Quaternion lookRotation = Quaternion.LookRotation((target.position - transform.position));
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed * 2);
-
-            Vector3 runTo = transform.position + ((transform.position - target.position).normalized * (30));
-            navMeshAgent.SetDestination(runTo);
 
         }
 

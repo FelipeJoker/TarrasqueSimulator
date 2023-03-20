@@ -6768,6 +6768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7507236118379933587}
   - component: {fileID: 7596660775653281187}
+  - component: {fileID: 1509308341840872328}
   - component: {fileID: -1588367287225130396}
   - component: {fileID: 5690204477666224640}
   - component: {fileID: 6452924707711795665}
@@ -6820,7 +6821,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-1588367287225130396
+--- !u!114 &1509308341840872328
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6828,6 +6829,77 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7510806807889451261}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5a3ddaaece2ca498c33e55022a00c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseRange: 25
+  turnSpeed: 5
+  target: {fileID: 0}
+  distanceToTarget: Infinity
+  isProvoked: 0
+  timeForDisable: 0
+  isDead: 0
+  enemyDamage: 1
+  fireballDMG: 0
+  enemySizeForDistance: 1
+  enemySizeForPlayerComparison: 1
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  isScaredFromGrowth: 0
+  isRanged: 0
+  rangedAttackRange: 20
+  rangedAttackStartingPoint: {fileID: 302066715643027609}
+  rangedAttackParticleSystem: {fileID: 383233596934977182}
+  rangedAttackTarget: {fileID: 0}
+  usualSize: {x: 0, y: 0, z: 0}
+  deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
+  deathTimer: 10
+  randomCasterAction: 0
+  isCasting: 0
+  priestUolalo: {fileID: 16727531047867078, guid: ee6fe217cf57e20438e8ab9e1624d274,
+    type: 3}
+  overHeadTarget: {fileID: 0}
+  hasStartAttackSound: 0
+  startAttackSound: {fileID: 0}
+  uolaloSound: {fileID: 8300000, guid: 5323d9a070afc0c4c9a4168a6aef7d12, type: 3}
+  shieldAllySound: {fileID: 8300000, guid: 878f7ba2b24483c40ba4421abc8b811f, type: 3}
+  allyTarget: {fileID: 0}
+  shieldEffect: {fileID: 6462446160508757803, guid: 2ddaee0c3f328334998201c3fa61c7a0,
+    type: 3}
+  isInvincible: 0
+  anotherParticleEffect: {fileID: 7069698768128236397}
+  isWizard: 0
+  magicMissiles: {fileID: 0}
+  lightningBolt: {fileID: 0}
+  lightningBoltCharge: {fileID: 0}
+  fireBall: {fileID: 0}
+  fireballCharge: {fileID: 0}
+  meteorCharge: {fileID: 0}
+  activateFireBallDamage: 0
+  meteorShower: {fileID: 0}
+  magicMissileSFX: {fileID: 0}
+  lightningSFX: {fileID: 0}
+  fireballSFX: {fileID: 0}
+  fireballImpactSFX: {fileID: 0}
+  meteorPortalSFX: {fileID: 0}
+  meteorFallSFX: {fileID: 0}
+  meteorImpactSFX: {fileID: 0}
+  fireBallChargeSFX: {fileID: 0}
+  meteorChargeSFX: {fileID: 0}
+  rangedMagicStartingPoint: {fileID: 6201233655704970733}
+  lighteningFINAL: {fileID: 0}
+  magicMissileFINAL: {fileID: 0}
+  doesNotMove: 0
+  enemyStats: {fileID: 0}
+--- !u!114 &-1588367287225130396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7510806807889451261}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0144ad147f7dba4d99e506700b6374f, type: 3}
   m_Name: 
@@ -7039,7 +7111,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d33c0c753085e408539a6ab9e5d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreValue: 10
   foodValue: 2
+  isInvincible: 0
+  maxHealth: 1
+  currentHealth: 1
+  hasAddedScoreAlready: 0
+  timeForDisable: 0
+  isDead: 0
+  thisNavMesh: {fileID: 0}
+  usualSize: {x: 0, y: 0, z: 0}
+  deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
+  deathTimer: 10
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  referToScoreHUD: {fileID: 0}
 --- !u!54 &441184104473565699
 Rigidbody:
   m_ObjectHideFlags: 0

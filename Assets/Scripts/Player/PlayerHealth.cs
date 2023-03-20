@@ -55,9 +55,12 @@ public class PlayerHealth : MonoBehaviour
 
     public GameObject gameOverPanel;
 
+    public PlayerMovement playerMovement;
+
 
     private void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
         currentPlayerGrowth = 0;
         currentPlayerHealth = maxPlayerHealth;
         healthBar.SetMaxHealth(maxPlayerHealth);
@@ -99,7 +102,7 @@ public class PlayerHealth : MonoBehaviour
 
 
 
-        if (currentPlayerHealth <=0 && GetComponent<PlayerMovement>().controlsDisabled == false)
+        if (currentPlayerHealth <=0 && playerMovement.controlsDisabled == false)
         {
             PlayerIsKilled();
         }
@@ -148,7 +151,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void PlayerIsKilled()
     {
-        GetComponent<PlayerMovement>().controlsDisabled = true;
+        playerMovement.horizontal = 0;
+        playerMovement.vertical = 0;
+        playerMovement.controlsDisabled = true;
         animator.SetTrigger("die");
         audioSource.PlayOneShot(death);
         StartCoroutine(StartGameOverSequence());
@@ -186,7 +191,7 @@ public class PlayerHealth : MonoBehaviour
 
         if(isMaxSize == false)
         {
-            GetComponent<PlayerMovement>().controlsDisabled = true;
+            playerMovement.controlsDisabled = true;
             currentPlayerGrowth = 0;
             masterSizeValue++;
             growthBar.SetPlayerGrowth(currentPlayerGrowth);
@@ -196,7 +201,7 @@ public class PlayerHealth : MonoBehaviour
 
             if (masterSizeValue == 3)
             {
-                GetComponent<PlayerMovement>().FootsCollidersOn();
+                playerMovement.FootsCollidersOn();
             }
 
 
@@ -247,7 +252,7 @@ public class PlayerHealth : MonoBehaviour
             initHealthBarSize += healthBarAdjust;
             isMaxSize = true;
             IncreaseAllValuesToNewSize();
-            GetComponent<PlayerMovement>().controlsDisabled = false;
+            playerMovement.controlsDisabled = false;
 
         }
 
@@ -264,8 +269,8 @@ public class PlayerHealth : MonoBehaviour
 
         startSize = maxSize;
         maxSize = maxSize * 1.5f;
-        GetComponent<PlayerMovement>().playerDamage = GetComponent<PlayerMovement>().playerDamage * 2;
-        GetComponent<PlayerMovement>().isAttacking = false;
+        playerMovement.playerDamage = playerMovement.playerDamage * 2;
+        playerMovement.isAttacking = false;
         sizeCombatRadius = sizeCombatRadius + 0.75f;
 
         var warriors = FindObjectsOfType<Warrior>() ;

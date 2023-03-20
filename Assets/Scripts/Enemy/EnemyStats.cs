@@ -47,6 +47,10 @@ public class EnemyStats : MonoBehaviour
                 StartDeathSequence();
             }
 
+            if (GetComponent<CasterEnemy>().allyTarget != null)
+            {
+                GetComponent<CasterEnemy>().allyTarget.GetComponent<EnemyStats>().RemoveInvincibility();
+            }
 
         }
 
@@ -74,6 +78,21 @@ public class EnemyStats : MonoBehaviour
             referToScoreHUD.IncreaseScore(scoreValue);
             hasAddedScoreAlready = true;
             GetComponent<Peasant>().PeasantDie();
+        }
+        else if(GetComponent<CasterEnemy>())
+        {
+            GetComponent<BoxCollider>().isTrigger = false;
+            isDead = true;
+            thisNavMesh.speed = 0;
+            thisNavMesh.angularSpeed = 0;
+            GetComponent<Animator>().SetBool("IsAttacking", false);
+            GetComponent<Animator>().SetBool("IsWalking", false);
+            GetComponent<Animator>().SetTrigger("death");
+            hasAddedScoreAlready = true;
+            referToScoreHUD.IncreaseScore(scoreValue);
+            GetComponent<CasterEnemy>().StopEffects();
+
+            StartCoroutine(ProcessToDeath());
         }
         else
         {
@@ -133,6 +152,23 @@ public class EnemyStats : MonoBehaviour
         transform.localScale = usualSize;
         isDead = false;
 
+    }
+
+
+    public void Invincibility()
+    {
+        isInvincible = true;
+    }
+
+    public void RemoveInvincibility()
+    {
+        if (isInvincible)
+        {
+            isInvincible = false;
+            GameObject shieldObject = GetComponentInChildren<PriestShield>().gameObject;
+            Destroy(shieldObject);
+
+        }
 
 
     }

@@ -22,8 +22,6 @@ public class RangedEnemy : MonoBehaviour
     public float timeForDisable = 0;
     public bool isDead = false;
 
-    public int maxHealth = 1;
-    public int currentHealth = 1;
     public int enemyDamage = 1;
 
     public int enemySizeForDistance = 1;
@@ -34,7 +32,6 @@ public class RangedEnemy : MonoBehaviour
 
     public bool isScaredFromGrowth = false;
 
-    public bool isRanged = false;
     public float rangedAttackRange = 20;
     public Transform rangedAttackStartingPoint;
     public ParticleSystem rangedAttackParticleSystem;
@@ -53,6 +50,9 @@ public class RangedEnemy : MonoBehaviour
     Vector3 _direction;
     Quaternion particleSystemRotationMaster;
 
+    public EnemyStats enemyStats;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -65,9 +65,9 @@ public class RangedEnemy : MonoBehaviour
         target = FindObjectOfType<PlayerMovement>().transform;
         rangedAttackTarget = FindObjectOfType<RangedAttackTarget>().transform;
         usualSize = transform.localScale;
+        enemyStats = GetComponent<EnemyStats>();
 
         navMeshAgent.stoppingDistance = target.GetComponent<PlayerHealth>().sizeCombatRadius + (enemySizeForDistance - 1);
-        currentHealth = maxHealth;
 
     }
 
@@ -79,10 +79,10 @@ public class RangedEnemy : MonoBehaviour
 
         distanceToTarget = Vector3.Distance(target.position, transform.position);
 
-        if (isDead == false && doesNotMove == false)
+        if (enemyStats.isDead == false && doesNotMove == false)
         {
 
-            if (isScaredFromGrowth == true && distanceToTarget > chaseRange * 1.3f)
+            if (isScaredFromGrowth == true && distanceToTarget > chaseRange * 1.1f)
             {
                 navMeshAgent.SetDestination(transform.position);
                 isProvoked = false;
@@ -91,6 +91,15 @@ public class RangedEnemy : MonoBehaviour
                 GetComponent<Animator>().SetBool("IsWalking", false);
                 GetComponent<Animator>().SetTrigger("idle");
 
+            }
+            else if (isScaredFromGrowth == true && distanceToTarget < chaseRange * 1.1f)
+            {
+                isProvoked = false;
+                Vector3 direction = transform.position - target.position;
+                Quaternion lookRotation = Quaternion.LookRotation((direction));
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed * 2);
+                Vector3 runTo = transform.position + direction;
+                navMeshAgent.SetDestination(runTo);
             }
 
             if (isScaredFromGrowth == false)
@@ -117,7 +126,7 @@ public class RangedEnemy : MonoBehaviour
 
         }
 
-        if (doesNotMove == true && isRanged == true) // Ranged plant
+        if (doesNotMove == true  && isDead == false) // Ranged plant
         {
             if (distanceToTarget <= rangedAttackRange)
             {
@@ -279,15 +288,6 @@ public class RangedEnemy : MonoBehaviour
             isScaredFromGrowth = true;
             GetComponent<Animator>().SetBool("IsAttacking", false);
             GetComponent<Animator>().SetBool("IsWalking", true);
-
-            Vector3 direction = (target.position - transform.position).normalized;
-
-            Quaternion lookRotation = Quaternion.LookRotation((target.position - transform.position));
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed * 2);
-
-            Vector3 runTo = transform.position + ((transform.position - target.position).normalized * (30));
-            navMeshAgent.SetDestination(runTo);
 
         }
 

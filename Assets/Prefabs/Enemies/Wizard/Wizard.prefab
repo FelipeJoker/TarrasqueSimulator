@@ -1096,12 +1096,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5561728488654186512}
   - component: {fileID: 5508899334772485408}
-  - component: {fileID: 8302204762109669408}
   - component: {fileID: 3362590445402111037}
   - component: {fileID: 86501992198482973}
   - component: {fileID: 6189893032211439844}
   - component: {fileID: 1429190445188514282}
   - component: {fileID: 3528326458838805644}
+  - component: {fileID: 2487858342185230988}
   m_Layer: 7
   m_Name: Wizard
   m_TagString: Human
@@ -1147,84 +1147,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8302204762109669408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5558724524165542408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0144ad147f7dba4d99e506700b6374f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chaseRange: 25
-  turnSpeed: 3
-  target: {fileID: 0}
-  distanceToTarget: Infinity
-  isProvoked: 0
-  timeForDisable: 0
-  isDead: 0
-  maxHealth: 1
-  currentHealth: 1
-  enemyDamage: 1
-  fireballDMG: 9
-  enemySizeForDistance: 1
-  enemySizeForPlayerComparison: 1
-  usualSpeed: 0
-  usualAngularSpeed: 0
-  isScaredFromGrowth: 0
-  isRanged: 0
-  rangedAttackRange: 20
-  rangedAttackStartingPoint: {fileID: 610014562054595274}
-  rangedAttackParticleSystem: {fileID: 2215014382298348501}
-  rangedAttackTarget: {fileID: 0}
-  usualSize: {x: 0, y: 0, z: 0}
-  deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
-  deathTimer: 10
-  isCaster: 1
-  randomCasterAction: 0
-  isCasting: 0
-  priestUolalo: {fileID: 0}
-  overHeadTarget: {fileID: 0}
-  hasStartAttackSound: 0
-  startAttackSound: {fileID: 0}
-  uolaloSound: {fileID: 8300000, guid: 5323d9a070afc0c4c9a4168a6aef7d12, type: 3}
-  shieldAllySound: {fileID: 8300000, guid: 878f7ba2b24483c40ba4421abc8b811f, type: 3}
-  allyTarget: {fileID: 0}
-  shieldEffect: {fileID: 6462446160508757803, guid: 2ddaee0c3f328334998201c3fa61c7a0,
-    type: 3}
-  isInvincible: 0
-  anotherParticleEffect: {fileID: 0}
-  isWizard: 1
-  magicMissiles: {fileID: 2215014382298348501}
-  lightningBolt: {fileID: 1917666341785720185}
-  lightningBoltCharge: {fileID: 6002967033520842428}
-  fireBall: {fileID: 5766512355457172676}
-  fireballCharge: {fileID: 3108878121131746202}
-  meteorCharge: {fileID: 4716968813766760543}
-  activateFireBallDamage: 0
-  meteorShower: {fileID: 6116538928944398609, guid: c8c79fa38a370cf47b8a8eeeac97a574,
-    type: 3}
-  magicMissileSFX: {fileID: 8300000, guid: 53f1974e8be7839429b3da3666a835de, type: 3}
-  lightningSFX: {fileID: 8300000, guid: 499cb0dbd82fb684bb6e5ce9d603071c, type: 3}
-  fireballSFX: {fileID: 8300000, guid: e3e1910e0358fc74bbd29bf804d63b86, type: 3}
-  fireballImpactSFX: {fileID: 8300000, guid: 1f4da0a74bb0a9c48837632c72d0c0ae, type: 3}
-  meteorPortalSFX: {fileID: 8300000, guid: 6d796589297675e4198c6412ec8180ae, type: 3}
-  meteorFallSFX: {fileID: 8300000, guid: efae2bf8d56724040add829cd5952917, type: 3}
-  meteorImpactSFX: {fileID: 8300000, guid: 1f4da0a74bb0a9c48837632c72d0c0ae, type: 3}
-  fireBallChargeSFX: {fileID: 8300000, guid: 26229c0f541d6744a9ddc476a34593de, type: 3}
-  meteorChargeSFX: {fileID: 8300000, guid: 38a8dc445b726ed479465a35a40c8846, type: 3}
-  rangedMagicStartingPoint: {fileID: 4463302951754928541}
-  lighteningFINAL: {fileID: 5658694836415633898, guid: 4580e786152ded548afac67bcee9b70f,
-    type: 3}
-  magicMissileFINAL: {fileID: 5769279963799131232, guid: aa4e3c6811db4a54eb26b05400815d6f,
-    type: 3}
-  doesNotMove: 0
-  scoreValue: 10
-  referToScoreHUD: {fileID: 0}
-  hasAddedScoreAlready: 0
 --- !u!65 &3362590445402111037
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1368,7 +1290,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d33c0c753085e408539a6ab9e5d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodValue: 2
+  scoreValue: 10
+  foodValue: 1
+  isInvincible: 0
+  maxHealth: 1
+  currentHealth: 1
+  hasAddedScoreAlready: 0
+  timeForDisable: 0
+  isDead: 0
+  thisNavMesh: {fileID: 0}
+  usualSize: {x: 0, y: 0, z: 0}
+  deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
+  deathTimer: 10
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  referToScoreHUD: {fileID: 0}
 --- !u!54 &3528326458838805644
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1385,6 +1321,78 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2487858342185230988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5558724524165542408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5a3ddaaece2ca498c33e55022a00c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseRange: 25
+  turnSpeed: 3
+  target: {fileID: 0}
+  distanceToTarget: Infinity
+  isProvoked: 0
+  timeForDisable: 0
+  isDead: 0
+  enemyDamage: 1
+  fireballDMG: 9
+  enemySizeForDistance: 1
+  enemySizeForPlayerComparison: 1
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  isScaredFromGrowth: 0
+  isRanged: 0
+  rangedAttackRange: 20
+  rangedAttackStartingPoint: {fileID: 0}
+  rangedAttackParticleSystem: {fileID: 0}
+  rangedAttackTarget: {fileID: 0}
+  usualSize: {x: 0, y: 0, z: 0}
+  deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
+  deathTimer: 10
+  randomCasterAction: 0
+  isCasting: 0
+  priestUolalo: {fileID: 0}
+  overHeadTarget: {fileID: 0}
+  hasStartAttackSound: 0
+  startAttackSound: {fileID: 0}
+  uolaloSound: {fileID: 0}
+  shieldAllySound: {fileID: 0}
+  allyTarget: {fileID: 0}
+  shieldEffect: {fileID: 0}
+  isInvincible: 0
+  anotherParticleEffect: {fileID: 0}
+  isWizard: 1
+  magicMissiles: {fileID: 2215014382298348501}
+  lightningBolt: {fileID: 1917666341785720185}
+  lightningBoltCharge: {fileID: 6002967033520842428}
+  fireBall: {fileID: 5766512355457172676}
+  fireballCharge: {fileID: 3108878121131746202}
+  meteorCharge: {fileID: 4716968813766760543}
+  activateFireBallDamage: 0
+  meteorShower: {fileID: 6116538928944398609, guid: c8c79fa38a370cf47b8a8eeeac97a574,
+    type: 3}
+  magicMissileSFX: {fileID: 8300000, guid: 53f1974e8be7839429b3da3666a835de, type: 3}
+  lightningSFX: {fileID: 8300000, guid: 499cb0dbd82fb684bb6e5ce9d603071c, type: 3}
+  fireballSFX: {fileID: 8300000, guid: e3e1910e0358fc74bbd29bf804d63b86, type: 3}
+  fireballImpactSFX: {fileID: 8300000, guid: 1f4da0a74bb0a9c48837632c72d0c0ae, type: 3}
+  meteorPortalSFX: {fileID: 8300000, guid: 6d796589297675e4198c6412ec8180ae, type: 3}
+  meteorFallSFX: {fileID: 8300000, guid: efae2bf8d56724040add829cd5952917, type: 3}
+  meteorImpactSFX: {fileID: 8300000, guid: 1f4da0a74bb0a9c48837632c72d0c0ae, type: 3}
+  fireBallChargeSFX: {fileID: 8300000, guid: 26229c0f541d6744a9ddc476a34593de, type: 3}
+  meteorChargeSFX: {fileID: 8300000, guid: 38a8dc445b726ed479465a35a40c8846, type: 3}
+  rangedMagicStartingPoint: {fileID: 4463302951754928541}
+  lighteningFINAL: {fileID: 5658694836415633898, guid: 4580e786152ded548afac67bcee9b70f,
+    type: 3}
+  magicMissileFINAL: {fileID: 5769279963799131232, guid: aa4e3c6811db4a54eb26b05400815d6f,
+    type: 3}
+  doesNotMove: 0
+  enemyStats: {fileID: 0}
 --- !u!1 &5558729486841754626
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ Transform:
   - {fileID: 3939579481795926296}
   m_Father: {fileID: 3939579480532885981}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: -0.000013288553, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.000013660378, z: 0}
 --- !u!1 &3939579480076280589
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ Transform:
   - {fileID: 3939579480532885981}
   m_Father: {fileID: 3939579481871594339}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 5.0335283, y: 0.00059103593, z: -0.0015673647}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3939579480340040168
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +189,7 @@ Transform:
   - {fileID: 3939579481025762167}
   m_Father: {fileID: 3939579480532885981}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -40.590538, y: -16.039917, z: 40.56152}
+  m_LocalEulerAnglesHint: {x: 11.5655, y: 0.26690856, z: -9.476785}
 --- !u!1 &3939579480347787007
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +221,7 @@ Transform:
   - {fileID: 3939579480867506109}
   m_Father: {fileID: 3939579480532885981}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -26.790373, y: 15.162864, z: -47.148987}
+  m_LocalEulerAnglesHint: {x: 10.296002, y: 2.2391565, z: 10.322307}
 --- !u!1 &3939579480500827944
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +288,7 @@ Transform:
   - {fileID: 3939579479809397553}
   m_Father: {fileID: 3939579480227943310}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 7.639986, y: -0.00041318778, z: -0.0057654157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3939579480687167741
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +366,8 @@ GameObject:
   - component: {fileID: 2215720377403345397}
   - component: {fileID: 3452630378178206931}
   - component: {fileID: 960894301508326024}
-  - component: {fileID: 6306500250094321313}
+  - component: {fileID: 5403520777268477335}
+  - component: {fileID: -6633918306738239837}
   m_Layer: 0
   m_Name: RangedYellowPlant
   m_TagString: Untagged
@@ -381,7 +382,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3939579480768336765}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -462,7 +463,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6306500250094321313
+--- !u!114 &5403520777268477335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -471,40 +472,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 3939579480768336765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0144ad147f7dba4d99e506700b6374f, type: 3}
+  m_Script: {fileID: 11500000, guid: 11d33c0c753085e408539a6ab9e5d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseRange: 8
+  scoreValue: 10
+  foodValue: 1
+  isInvincible: 0
+  maxHealth: 1
+  currentHealth: 1
+  hasAddedScoreAlready: 0
+  timeForDisable: 0
+  isDead: 0
+  thisNavMesh: {fileID: 0}
+  usualSize: {x: 0, y: 0, z: 0}
+  deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
+  deathTimer: 10
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  referToScoreHUD: {fileID: 0}
+--- !u!114 &-6633918306738239837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3939579480768336765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58fac76924b1a044dbb1c5e7892322a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseRange: 10
   turnSpeed: 5
   target: {fileID: 0}
   distanceToTarget: Infinity
   isProvoked: 0
   timeForDisable: 0
   isDead: 0
-  maxHealth: 1
-  currentHealth: 1
   enemyDamage: 1
   enemySizeForDistance: 1
   enemySizeForPlayerComparison: 1
   usualSpeed: 0
   usualAngularSpeed: 0
   isScaredFromGrowth: 0
-  isRanged: 1
   rangedAttackRange: 10
-  rangedAttackStartingPoint: {fileID: 3939579481795926296}
+  rangedAttackStartingPoint: {fileID: 8917144439557926185}
   rangedAttackParticleSystem: {fileID: 188390416063864245}
   rangedAttackTarget: {fileID: 0}
   usualSize: {x: 0, y: 0, z: 0}
   deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
   deathTimer: 10
-  isCaster: 0
-  randomCasterAction: 0
-  isCasting: 0
-  priestUolalo: {fileID: 0}
-  overHeadTarget: {fileID: 0}
   hasStartAttackSound: 0
   startAttackSound: {fileID: 0}
-  uolaloSound: {fileID: 0}
   doesNotMove: 1
 --- !u!1 &3939579480867506108
 GameObject:
@@ -568,7 +587,7 @@ Transform:
   - {fileID: 3939579480500827945}
   m_Father: {fileID: 3939579480532885981}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 28.793564, y: 12.515587, z: 42.42679}
+  m_LocalEulerAnglesHint: {x: -9.535982, y: 3.472751, z: -11.21563}
 --- !u!1 &3939579480951554771
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +619,7 @@ Transform:
   - {fileID: 3939579481639299836}
   m_Father: {fileID: 3939579480532885981}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 39.677406, y: -17.275826, z: -48.02399}
+  m_LocalEulerAnglesHint: {x: -9.346895, y: 1.5983257, z: 9.329764}
 --- !u!1 &3939579481025762166
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,7 +745,7 @@ Transform:
   - {fileID: 3939579480227943310}
   m_Father: {fileID: 3939579480687167742}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -6.3532424, y: -0.000937249, z: 0.009462971}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6175906529631920609
 GameObject:
   m_ObjectHideFlags: 0

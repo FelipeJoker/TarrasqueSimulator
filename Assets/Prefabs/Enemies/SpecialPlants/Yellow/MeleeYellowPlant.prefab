@@ -366,7 +366,8 @@ GameObject:
   - component: {fileID: 2215720377403345397}
   - component: {fileID: 3452630378178206931}
   - component: {fileID: 960894301508326024}
-  - component: {fileID: 6306500250094321313}
+  - component: {fileID: 2580951201109720078}
+  - component: {fileID: -2418517052144229916}
   m_Layer: 0
   m_Name: MeleeYellowPlant
   m_TagString: Untagged
@@ -381,7 +382,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3939579480768336765}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -462,7 +463,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6306500250094321313
+--- !u!114 &2580951201109720078
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -471,41 +472,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 3939579480768336765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0144ad147f7dba4d99e506700b6374f, type: 3}
+  m_Script: {fileID: 11500000, guid: 11d33c0c753085e408539a6ab9e5d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseRange: 8
+  scoreValue: 10
+  foodValue: 1
+  isInvincible: 0
+  maxHealth: 1
+  currentHealth: 1
+  hasAddedScoreAlready: 0
+  timeForDisable: 0
+  isDead: 0
+  thisNavMesh: {fileID: 0}
+  usualSize: {x: 0, y: 0, z: 0}
+  deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
+  deathTimer: 10
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  referToScoreHUD: {fileID: 0}
+--- !u!114 &-2418517052144229916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3939579480768336765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37919b0ea7f61b24cb8f15822a33e07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseRange: 7
   turnSpeed: 5
   target: {fileID: 0}
   distanceToTarget: Infinity
   isProvoked: 0
-  timeForDisable: 0
-  isDead: 0
-  maxHealth: 1
-  currentHealth: 1
-  enemyDamage: 1
-  enemySizeForDistance: 1
+  enemyDamage: 3
+  enemySizeForDistance: 2
   enemySizeForPlayerComparison: 1
   usualSpeed: 0
   usualAngularSpeed: 0
   isScaredFromGrowth: 0
-  isRanged: 0
-  rangedAttackRange: 20
-  rangedAttackStartingPoint: {fileID: 0}
-  rangedAttackParticleSystem: {fileID: 0}
-  rangedAttackTarget: {fileID: 0}
-  usualSize: {x: 0, y: 0, z: 0}
-  deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
-  deathTimer: 10
-  isCaster: 0
-  randomCasterAction: 0
-  isCasting: 0
-  priestUolalo: {fileID: 0}
-  overHeadTarget: {fileID: 0}
   hasStartAttackSound: 0
   startAttackSound: {fileID: 0}
-  uolaloSound: {fileID: 0}
   doesNotMove: 1
+  rangedAttackTarget: {fileID: 0}
 --- !u!1 &3939579480867506108
 GameObject:
   m_ObjectHideFlags: 0

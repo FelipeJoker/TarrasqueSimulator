@@ -8,8 +8,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool controlsDisabled = false;
 
-    public CharacterController controller;
-
     public Rigidbody rb;
 
     public Joystick joystick;
@@ -95,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void NewBite()
     {
-        if (attacksCooldown <= 0)
+        if (attacksCooldown <= 0 && controlsDisabled == false)
         {
             attacksCooldown = attacksCooldownStart;
             BiteStart();
@@ -104,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void NewClaw()
     {
-        if (attacksCooldown <= 0)
+        if (attacksCooldown <= 0 && controlsDisabled == false)
         {
             attacksCooldown = attacksCooldownStart;
 

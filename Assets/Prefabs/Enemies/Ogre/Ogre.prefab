@@ -1229,11 +1229,11 @@ GameObject:
   - component: {fileID: 3262959506165768544}
   - component: {fileID: 3262959506172714400}
   - component: {fileID: 853889743312192134}
-  - component: {fileID: 1791816591875162159}
   - component: {fileID: 3619345652475078106}
   - component: {fileID: 3578913498115392565}
   - component: {fileID: 6475031267882516540}
   - component: {fileID: 5542556412957291348}
+  - component: {fileID: 7439710067481313439}
   m_Layer: 7
   m_Name: Ogre
   m_TagString: Untagged
@@ -1291,47 +1291,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d33c0c753085e408539a6ab9e5d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreValue: 10
   foodValue: 1
---- !u!114 &1791816591875162159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3262959506165547700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0144ad147f7dba4d99e506700b6374f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chaseRange: 20
-  turnSpeed: 2
-  target: {fileID: 0}
-  isProvoked: 0
-  timeForDisable: 0
-  isDead: 0
+  isInvincible: 0
   maxHealth: 50
   currentHealth: 1
-  enemyDamage: 9
-  enemySizeForDistance: 10
-  enemySizeForPlayerComparison: 1
-  usualSpeed: 0
-  usualAngularSpeed: 0
-  isScaredFromGrowth: 0
-  isRanged: 0
-  rangedAttackRange: 20
-  rangedAttackStartingPoint: {fileID: 0}
-  rangedAttackParticleSystem: {fileID: 0}
+  hasAddedScoreAlready: 0
+  timeForDisable: 0
+  isDead: 0
+  thisNavMesh: {fileID: 0}
   usualSize: {x: 0, y: 0, z: 0}
   deathSize: {x: 0.0001, y: 0.0001, z: 0.0001}
   deathTimer: 10
-  isCaster: 0
-  randomCasterAction: 0
-  isCasting: 0
-  priestUolalo: {fileID: 0}
-  overHeadTarget: {fileID: 0}
-  hasStartAttackSound: 1
-  startAttackSound: {fileID: 8300000, guid: 24a244833540ae94386293d2118a46a9, type: 3}
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  referToScoreHUD: {fileID: 0}
 --- !u!54 &3619345652475078106
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1479,6 +1453,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7439710067481313439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3262959506165547700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37919b0ea7f61b24cb8f15822a33e07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseRange: 20
+  turnSpeed: 2
+  target: {fileID: 0}
+  distanceToTarget: Infinity
+  isProvoked: 0
+  enemyDamage: 9
+  enemySizeForDistance: 10
+  enemySizeForPlayerComparison: 3
+  usualSpeed: 0
+  usualAngularSpeed: 0
+  isScaredFromGrowth: 0
+  hasStartAttackSound: 1
+  startAttackSound: {fileID: 8300000, guid: 24a244833540ae94386293d2118a46a9, type: 3}
+  doesNotMove: 0
+  rangedAttackTarget: {fileID: 0}
 --- !u!1 &3262959506165549636
 GameObject:
   m_ObjectHideFlags: 0
